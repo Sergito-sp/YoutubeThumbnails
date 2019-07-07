@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">YoutubeThumbnails</string>
+
+    //Google key to access Youtube Data API
+    <string name="API_KEY">AIzaSyADyE_ie0ZITqUQb4yh5Vh10Piv7nuKreg</string>
+
+    //ID of the Youtube Channel we are pulling information from
+    <string name="CHANNEL_ID">UC_A--fhX5gea0i4UtpD99Gg</string>
+
+    <string name="VIDEO_ID">VIDEO_ID</string>
+
+    <string name="VIDEO_TITLE">Title:</string>
+    <string name="VIDEO_DURATION">Duration:</string>
+    <string name="VIDEO_PUBLISHED">Published:</string>
+    <string name="VIDEO_DESCRIPTION">Description:</string>
+    <string name="VIDEO_DESCRIPTION_READ_MORE">READ MORE</string>
+    <string name="VIDEO_DESCRIPTION_READ_LESS">READ LESS</string>
+</resources>
