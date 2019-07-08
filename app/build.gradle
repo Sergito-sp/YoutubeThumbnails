@@ -41,5 +41,7 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.3'
     //Support design library for FAB
     implementation 'com.android.support:design:28.0.0'
+    //JSoup for HTML parser (escape special characters)
+    implementation 'org.jsoup:jsoup:1.12.1'
 
 }

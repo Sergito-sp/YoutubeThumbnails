@@ -2,7 +2,7 @@
     <string name="app_name">YoutubeThumbnails</string>
 
     //Google key to access Youtube Data API
-    <string name="API_KEY">AIzaSyADyE_ie0ZITqUQb4yh5Vh10Piv7nuKreg</string>
+    <string name="API_KEY">AIzaSyAr-AUxFqEp82k4pYRSsvDfs_GPmmLeeGg</string>
 
     //ID of the Youtube Channel we are pulling information from
     <string name="CHANNEL_ID">UC_A--fhX5gea0i4UtpD99Gg</string>

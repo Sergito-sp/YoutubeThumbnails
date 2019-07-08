@@ -3,6 +3,7 @@ package com.projects.youtubeapp.retrofit
 import com.projects.youtubeapp.data_definition.YoutubeComment
 import com.projects.youtubeapp.data_definition.YoutubeVideo
 import org.json.JSONObject
+import org.jsoup.Jsoup
 
 //TODO("improvement) Go through JSON response structure in a better way (not hardcoded)
 //  or even better use a third-party library such a GSON
@@ -49,7 +50,7 @@ class YoutubeJsonParser {
                 youtubeVideos.add(
                     YoutubeVideo(
                         videoId = videoId,
-                        title = title,
+                        title = Jsoup.parse(title).text(),
                         thumbnailUrl = thumbnailUrl
                     )
                 )

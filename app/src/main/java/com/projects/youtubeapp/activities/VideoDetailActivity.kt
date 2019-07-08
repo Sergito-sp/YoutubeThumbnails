@@ -23,10 +23,6 @@ import kotlin.collections.ArrayList
 import android.support.v4.widget.NestedScrollView
 
 
-
-
-
-
 class VideoDetailActivity : AppCompatActivity() {
 
     var commentsLoadDone = false
@@ -53,7 +49,7 @@ class VideoDetailActivity : AppCompatActivity() {
         val videoID = intent.getStringExtra(resources.getString(R.string.VIDEO_ID))
 
         //Find video we want detailed information
-        val video: YoutubeVideo? = LocalData.youtubeVideos?.find { it.videoId == videoID }
+        val video: YoutubeVideo? = LocalData.youtubeVideos.find { it.videoId == videoID }
 
         //If the detailed information has already been retrieved, populate the views
         //If not, pull the data with a request and then populate
