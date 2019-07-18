@@ -18,8 +18,10 @@ interface YoutubeService {
         const val ORDER_COMMENTS = "time"
         //Max number of results to pull
         const val MAX_RESULTS = 10
-        //Max number of comments to pull
+        //Max number of comments to pull at a time
         const val MAX_RESULTS_COMMENTS = 100
+        //Max number of comments to pull in total
+        const val MAX_RESULTS_COMMENTS_TOTAL = 300
     }
 
     //Call to Youtube API to search for videos of a specific channel sorted by date

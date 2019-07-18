@@ -2,13 +2,12 @@ package com.projects.youtubeapp.retrofit
 
 import com.projects.youtubeapp.data_definition.YoutubeComment
 import com.projects.youtubeapp.data_definition.YoutubeVideo
+import com.projects.youtubeapp.retrofit.YoutubeService.Companion.MAX_RESULTS_COMMENTS_TOTAL
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.http.GET
-import retrofit2.http.Query
 
 class YoutubeRequest {
 
@@ -21,8 +20,8 @@ class YoutubeRequest {
 
     //Listener interface for async response
     interface ResponseListener {
-        fun onResponseReady(result: ArrayList<*>){}
-        fun onResponseReady(){}
+        fun onResponseReady(result: ArrayList<*>) {}
+        fun onResponseReady() {}
     }
 
     //Property holding the Retrofit service created
@@ -36,11 +35,16 @@ class YoutubeRequest {
     }
 
     //Call to Youtube API to search for videos of a specific channel sorted by date
-    fun getVideosForChannel(channelID: String, apiKey: String, currentPageToken:String? = "", responseListener: ResponseListener) {
+    fun getVideosForChannel(
+        channelID: String,
+        apiKey: String,
+        currentPageToken: String? = "",
+        responseListener: ResponseListener
+    ) {
 
         isLoadingData = true
         //Fix to avoid null
-        val currentPageTokenFixed = currentPageToken?:""
+        val currentPageTokenFixed = currentPageToken ?: ""
         service.getVideosForChannel(channelID, apiKey, currentPageTokenFixed).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 isLoadingData = false
@@ -92,11 +96,17 @@ class YoutubeRequest {
     }
 
     //Call to Youtube API to get top-level comments of a specific video
-    fun getCommentsForVideo(videoId:String, apiKey:String, currentPageToken:String? = "", comments:ArrayList<YoutubeComment> = ArrayList<YoutubeComment>(), responseListener: ResponseListener) {
+    fun getCommentsForVideo(
+        videoId: String,
+        apiKey: String,
+        currentPageToken: String? = "",
+        comments: ArrayList<YoutubeComment> = ArrayList<YoutubeComment>(),
+        responseListener: ResponseListener
+    ) {
 
         isLoadingData = true
         //Fix to avoid null
-        val currentPageTokenFixed = currentPageToken?:""
+        val currentPageTokenFixed = currentPageToken ?: ""
         service.getCommentsForVideo(videoId, apiKey, currentPageTokenFixed).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 isLoadingData = false
@@ -107,10 +117,12 @@ class YoutubeRequest {
                 comments.addAll(YoutubeJsonParser.parseCommentsForChannel(responseValue))
 
                 //Get next token, and if it exists, pull next set of comments in a recursive way
-                val nextToken = YoutubeJsonParser.parseNextTokenForComments(responseValue)
-                nextToken?.let{ getCommentsForVideo(videoId, apiKey, nextToken, comments, responseListener) }
-                nextToken?: run { responseListener.onResponseReady(comments) }
-             }
+                val nextToken =
+                    if (comments.size < MAX_RESULTS_COMMENTS_TOTAL) YoutubeJsonParser.parseNextTokenForComments(responseValue)
+                    else null
+                nextToken?.let { getCommentsForVideo(videoId, apiKey, nextToken, comments, responseListener) }
+                nextToken ?: run { responseListener.onResponseReady(comments) }
+            }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 isLoadingData = false
